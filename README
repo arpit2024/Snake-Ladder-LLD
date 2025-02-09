@@ -1,0 +1,69 @@
+Sanke & Ladder Low Level Design
+
+Requirements-
+
+1) There should be a Board to play the Game- size 100 cells
+2) Players should be able to select symbol(Validation- both player might select the same symbol)
+3) 2 Players can able to play
+4) Bot option should also be available
+5) Dice can be thrown for the players movement(who will make the first movement)
+7) if snake bite then the player steps should be decreased
+8) if Ladder is reached then the steps should be added
+9) the person who reach 100 first is the winner(check after eeach player move).
+
+
+Class Diagram - Represents the relationships between classes.
+
+-Game
+Board
+List<Players>
+nextPlayerIndex
+Dice
+GameState
+StartGame();
+
+
+-Game State(Enum)
+In Progress
+Success
+
+
+-Board
+List<Cell> grid
+Size
+
+-Symbol(enum)
+A,
+B
+
+<<Abstract Player>>
+Id
+Name
+symbol
+PlayerType
+position
+
+Player Implementation
+-HumanPlayer(Class)
+-BotPlayer(Class)
+
+-PlayerType(Enum)
+Human,
+Bot
+
+-Cell
+int number
+int jumpTo
+
+-Dice
+DiceRoll();
+
+-Snake
+int start
+int End
+
+-Ladder
+int Start
+int End
+
+
