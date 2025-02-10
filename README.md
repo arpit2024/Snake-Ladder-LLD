@@ -14,7 +14,7 @@ Snake and Ladder is a classic board game played by two players (or one player an
 6. The first player to reach **exactly 100 wins**.
 7. The game checks for a winner after each dice roll.
 
-## Class Design
+## Class Diagram
 
 ### 1. **Game**
 Manages the game flow, players, board, and dice.
