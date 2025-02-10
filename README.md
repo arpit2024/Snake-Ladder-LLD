@@ -16,6 +16,8 @@ Snake and Ladder is a classic board game played by two players (or one player an
 
 ## Class Diagram
 
+![**Class Diagram**](https://github.com/user-attachments/assets/6be8915c-7e07-4d44-9ec1-87b3cb47b8f2)
+
 ### 1. **Game**
 Manages the game flow, players, board, and dice.
 ```java
@@ -132,8 +134,6 @@ class SnakeAndLadder {
     public static void main(String[] args);
 }
 ```
-![**Class Diagram**](https://github.com/user-attachments/assets/6be8915c-7e07-4d44-9ec1-87b3cb47b8f2)
-
 
 ## Class Associations
 - **Game** aggregates **Board**, **Dice**, and manages **Players**.
