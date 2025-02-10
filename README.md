@@ -132,6 +132,8 @@ class SnakeAndLadder {
     public static void main(String[] args);
 }
 ```
+![**Class Diagram**](https://github.com/user-attachments/assets/6be8915c-7e07-4d44-9ec1-87b3cb47b8f2)
+
 
 ## Class Associations
 - **Game** aggregates **Board**, **Dice**, and manages **Players**.
