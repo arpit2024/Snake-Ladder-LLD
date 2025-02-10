@@ -1,69 +1,150 @@
-Sanke & Ladder Low Level Design
+# Snake and Ladder - Low-Level Design (LLD)
 
-Requirements-
+## Overview
+Snake and Ladder is a classic board game played by two players (or one player and a bot). The game consists of a board with 100 cells, numbered from 1 to 100. Players roll a six-sided dice to move forward, encountering snakes and ladders that either move them down or up the board. The player who reaches exactly 100 first wins the game.
 
-1) There should be a Board to play the Game- size 100 cells
-2) Players should be able to select symbol(Validation- both player might select the same symbol)
-3) 2 Players can able to play
-4) Bot option should also be available
-5) Dice can be thrown for the players movement(who will make the first movement)
-7) if snake bite then the player steps should be decreased
-8) if Ladder is reached then the steps should be added
-9) the person who reach 100 first is the winner(check after eeach player move).
+## Game Rules
+1. The board consists of **100 cells** numbered from **1 to 100**.
+2. Players must choose **unique symbols**.
+3. **Snakes and Ladders** are placed at specific cells:
+   - **Snakes:** Landing on a snake’s head moves the player down to its tail.
+   - **Ladders:** Landing at the bottom of a ladder moves the player to the top.
+4. Players roll a **6-sided dice** to move forward.
+5. A **random player** starts the game.
+6. The first player to reach **exactly 100 wins**.
+7. The game checks for a winner after each dice roll.
 
+## Class Design
 
-Class Diagram - Represents the relationships between classes.
+### 1. **Game**
+Manages the game flow, players, board, and dice.
+```java
+class Game {
+    private Board board;
+    private List<Player> playerList;
+    private int nextPlayerIndex;
+    private Dice dice;
+    private GameState gameState;
+    private Scanner scanner;
 
--Game
-Board
-List<Players>
-nextPlayerIndex
-Dice
-GameState
-StartGame();
+    public void startGame();
+}
+```
 
+### 2. **Board**
+Represents the game board with snakes and ladders.
+```java
+class Board {
+    private int size;
+    private Map<Integer, Integer> jumps;
 
--Game State(Enum)
-In Progress
-Success
+    public int getNewPosition(int currentPosition);
+}
+```
 
+### 3. **Player**
+Represents a player in the game.
+```java
+class Player {
+    private int id;
+    private String name;
+    private Symbol symbol;
+    private PlayerType playerType;
+    private int position;
+}
+```
 
--Board
-List<Cell> grid
-Size
+#### **HumanPlayer (Extends Player)**
+```java
+class HumanPlayer extends Player {}
+```
 
--Symbol(enum)
-A,
-B
+#### **BotPlayer (Extends Player)**
+```java
+class BotPlayer extends Player {}
+```
 
-<<Abstract Player>>
-Id
-Name
-symbol
-PlayerType
-position
+### 4. **Symbol**
+Represents the symbol chosen by a player.
+```java
+class Symbol {
+    char A;
+    char B;
+}
+```
 
-Player Implementation
--HumanPlayer(Class)
--BotPlayer(Class)
+### 5. **PlayerType (Enum)**
+Defines the type of player (Human or Bot).
+```java
+enum PlayerType {
+    HUMAN,
+    BOT
+}
+```
 
--PlayerType(Enum)
-Human,
-Bot
+### 6. **GameState (Enum)**
+Tracks the game status.
+```java
+enum GameState {
+    IN_PROGRESS,
+    SUCCESS
+}
+```
 
--Cell
-int number
-int jumpTo
+### 7. **Dice**
+Simulates the rolling of a dice.
+```java
+class Dice {
+    public int roll();
+}
+```
 
--Dice
-DiceRoll();
+### 8. **Snake**
+Represents a snake on the board.
+```java
+class Snake {
+    private int start;
+    private int end;
+}
+```
 
--Snake
-int start
-int End
+### 9. **Ladder**
+Represents a ladder on the board.
+```java
+class Ladder {
+    private int start;
+    private int end;
+}
+```
 
--Ladder
-int Start
-int End
+### 10. **Cell**
+Represents a single cell on the board.
+```java
+class Cell {
+    private int number;
+    private int jumpTo;
+}
+```
 
+### 11. **SnakeAndLadder (Main Class)**
+```java
+class SnakeAndLadder {
+    public static void main(String[] args);
+}
+```
 
+## Class Associations
+- **Game** aggregates **Board**, **Dice**, and manages **Players**.
+- **Player** has a composition with **Symbol** and **PlayerType**.
+- **Board** contains **Cells**, **Snakes**, **Ladders**, and uses **Dice**.
+- **Cell** references **Symbol**.
+
+## How to Run the Game
+1. Create instances of **Game**, **Board**, **Dice**, and **Players**.
+2. Call the `startGame()` method to begin.
+3. The game continues until a player reaches cell **100**.
+
+## Future Enhancements
+- Allow multiple players (more than 2).
+- Implement a GUI-based version.
+- Add difficulty levels for bot players.

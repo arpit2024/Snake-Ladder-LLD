@@ -1,0 +1,82 @@
+@startuml
+
+class Game {
+    - Board board
+    - List<Player> playerList
+    - int nextPlayerIndex
+    - Dice dice
+    - GameState gameState
+    - Scanner scanner
+    + void startGame()
+}
+
+class Board {
+    - int size
+    - Map<Integer, Integer> jumps
+    + int getNewPosition(int)
+}
+
+class Player {
+    - int id
+    - String name
+    - Symbol symbol
+    - PlayerType playerType
+    - int position
+}
+
+class HumanPlayer extends Player
+class BotPlayer extends Player
+
+class Symbol {
+    A
+    B
+}
+
+enum PlayerType {
+    HUMAN
+    BOT
+}
+
+enum GameState {
+    IN_PROGRESS
+    SUCCESS
+}
+
+class Dice {
+    + int roll()
+}
+
+class Snake {
+    - int start
+    - int end
+}
+
+class Ladder {
+    - int start
+    - int end
+}
+
+class Cell {
+    - int number
+    - int jumpTo
+}
+
+class SnakeAndLadder {
+    + void main(String[])
+}
+
+' Associations
+Game o-- Board  : Aggregation
+Game --> Dice
+Game -->  Player
+
+Player *-- Symbol : Composition
+Player *-- PlayerType : Composition
+
+Board -->  Cell
+Board -->  Snake
+Board -->  Ladder
+Board -->  Dice
+Cell --> Symbol
+
+@enduml
